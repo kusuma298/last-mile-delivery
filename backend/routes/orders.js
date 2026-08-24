@@ -1,0 +1,12 @@
+const router=require("express").Router();
+const c=require("../controllers/orderController");
+const {auth,allow}=require("../middleware/auth");
+router.post("/quote",auth,c.quote);
+router.post("/",auth,allow("customer","admin"),c.create);
+router.get("/",auth,c.list);
+router.get("/:id",auth,c.getOne);
+router.put("/:id/status",auth,allow("agent","admin"),c.changeStatus);
+router.put("/:id/assign",auth,allow("admin"),c.manualAssign);
+router.post("/:id/auto-assign",auth,allow("admin"),c.auto);
+router.post("/:id/reschedule",auth,allow("customer"),c.reschedule);
+module.exports=router;

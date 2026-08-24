@@ -1,0 +1,13 @@
+const router=require("express").Router();
+const c=require("../controllers/adminController");
+const {auth,allow}=require("../middleware/auth");
+router.use(auth,allow("admin"));
+router.get("/orders",c.orders);
+router.get("/zones",c.zones);
+router.post("/zones",c.createZone);
+router.post("/zones/:id/areas",c.addArea);
+router.get("/rates",c.rates);
+router.post("/rates",c.addRate);
+router.post("/cod",c.setCod);
+router.get("/agents",c.agents);
+module.exports=router;
